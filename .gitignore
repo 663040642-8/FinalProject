@@ -1,0 +1,27 @@
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node dependencies
+**/node_modules/
+
+# Build output (Angular, NestJS)
+**/dist/
+**/build/
+
+# Angular specific (optional)
+frontend/.angular/cache/
+
+# Env files (สำหรับ NestJS หรือ Angular config)
+**/.env
+**/.env.*
+!**/.env.example
+
+# IDE / Editor settings
+.vscode/
+.idea/
