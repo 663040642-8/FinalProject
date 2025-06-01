@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -22,16 +22,12 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
-    const existingUser = await this.usersService.findByEmail(registerDto.email);
-    if (existingUser) {
-      throw new ConflictException('Email นี้ถูกใช้ไปแล้ว');
+    if (!registerDto.firstName || !registerDto.lastName) {
+      throw new BadRequestException('First name and last name are required');
     }
-    return this.usersService.create({
-      email: registerDto.email,
-      password: registerDto.password,
-    });
+    
+    return this.usersService.create(registerDto);
   }
-
 
   async login(loginDto: LoginDto) {
     const user = await this.usersService.findByEmail(loginDto.email);
@@ -41,7 +37,8 @@ export class AuthService {
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
       throw new UnauthorizedException('Invalid password');
     }
-    const payload = { sub: user.id, email: user.email, role: user.role.name };
-    return this.jwtService.sign(payload);
+    const payload = { sub: user.id, role: user.role.name };
+    const access_token = this.jwtService.sign(payload);
+    return { access_token };
   }
 }
