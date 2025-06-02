@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Role } from './entities/role.entity';
@@ -6,9 +6,9 @@ import { Role } from './entities/role.entity';
 @Injectable()
 export class RolesService implements OnModuleInit {
     constructor(
-        @InjectRepository(Role)
+        @Inject('ROLE_REPOSITORY')
         private rolesRepository: Repository<Role>,
-    ) { }
+    ) {}
 
     async findByName(name: string): Promise<Role> {
         const role = await this.rolesRepository.findOne({ where: { name } });

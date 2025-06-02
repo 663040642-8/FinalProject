@@ -1,6 +1,5 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Role } from 'src/roles/entities/role.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,9 +8,9 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
+    @Inject('USER_REPOSITORY')
     private usersRepository: Repository<User>,
-    @InjectRepository(Role)
+    @Inject('ROLE_REPOSITORY')
     private rolesRepository: Repository<Role>,
   ) { }
 
