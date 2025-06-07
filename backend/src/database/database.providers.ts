@@ -9,14 +9,18 @@ export const databaseProviders = [
     inject: [ConfigService],
     useFactory: async (config: ConfigService) => {
       const dataSource = new DataSource({
-        type: 'mysql',
-        host: config.get('DB_HOST') ?? 'localhost',
-        port: parseInt(config.get('DB_PORT') ?? '3306'),
-        username: config.get('DB_USERNAME') ?? 'root',
-        password: config.get('DB_PASSWORD') ?? '',
-        database: config.get('DB_NAME') ?? 'test',
+        // type: 'mysql',
+        // host: config.get('DB_HOST') ?? 'localhost',
+        // port: parseInt(config.get('DB_PORT') ?? '3306'),
+        // username: config.get('DB_USERNAME') ?? 'root',
+        // password: config.get('DB_PASSWORD') ?? '',
+        // database: config.get('DB_NAME') ?? 'test',
+        // entities: [User, Role],
+        // synchronize: config.get('DB_SYNCHRONIZE') === 'true',
+        type: 'sqlite',
+        database: 'db.sqlite',
         entities: [User, Role],
-        synchronize: config.get('DB_SYNCHRONIZE') === 'true',
+        synchronize: true,
       });
       return dataSource.initialize();
     },

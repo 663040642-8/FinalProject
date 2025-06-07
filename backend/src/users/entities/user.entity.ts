@@ -12,10 +12,10 @@ export class User {
     @Column()
     password: string;
 
-    @Column()
+    @Column({ nullable: true })
     firstName: string;
 
-    @Column()
+    @Column({ nullable: true })
     lastName: string;
 
     @ManyToOne(() => Role, { eager: true })
