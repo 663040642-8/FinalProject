@@ -35,7 +35,7 @@ export class Login {
         this.router.navigate(['']);
       },
       error: err => {
-        // แจ้งเตือน user หรือจัดการ error
+        console.error('Login failed', err);
       }
     });
   }

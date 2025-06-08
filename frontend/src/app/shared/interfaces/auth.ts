@@ -4,6 +4,6 @@ export interface LoginDto {
 }
 
 export interface RegisterDto extends LoginDto {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
 }
